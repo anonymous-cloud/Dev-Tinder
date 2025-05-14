@@ -1,0 +1,11 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "place were developer meet and make connection and built  something amazing ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "abhisek pratap singh",
+  "license": "ISC"
+}
