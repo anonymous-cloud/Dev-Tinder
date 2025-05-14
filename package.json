@@ -4,7 +4,8 @@
   "description": "place were developer meet and make connection and built something amazing",
   "main": "index.js",
   "scripts": {
-"start": "node src/app.js"  },
+    "start": "node src/app.js"
+  },
   "author": "abhisek pratap singh",
   "license": "ISC",
   "dependencies": {
