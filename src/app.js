@@ -8,12 +8,7 @@ app.use(express.json()); // ✅ middleware to parse JSON body
 // POST /signup route
 app.post("/signup", async (req, res) => {
   try {
-    const user = new User({
-      firstName: "sachin",
-      lastName: "Tendulkar",
-      emailId: "sachin@tendulkar.COM",
-      password: "sachin123",
-    });
+    const user = new User(req.body);
 
     await user.save();
     res.send("User added successfully");
