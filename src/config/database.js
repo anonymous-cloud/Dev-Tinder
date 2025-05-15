@@ -5,13 +5,9 @@
 
  }
 
- connectDB().then(()=>{
-    console.log('Database connection established..!1')
- }).catch((err) =>{
-   console.log('databse connection failed !');
- });
  
 
  module.exports = connectDB;
  
 
+ 
