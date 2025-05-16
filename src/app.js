@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require("./config/database");
 const User = require("./models/user");
+ const mongoose = require('mongoose');
 
 const app = express();
 app.use(express.json()); // ✅ middleware to parse JSON body
@@ -11,8 +12,10 @@ app.post("/signup", async (req, res) => {
     const user = new User(req.body);
 
     await user.save();
-    res.send("User added successfully");
+    res.status(201).send("User added successfully");
   } catch (error) {
+    
+
     console.error("Signup error:", error);
     res.status(500).send("Internal Server Error");
   }
@@ -35,24 +38,36 @@ app.get("/user", async (req,res)=>{
 
 })
 
-app.patch("/user", async (req,res)=>{
-     const userId = req.body.userId;
-     const data = req.body;
-     console.log(data); 
-
-     try{
-     
-      await User.findByIdAndUpdate( {_id :userId},data)
-     res.send("user up[dated sussefylly")
-    
-    }catch (err){
-      console.log(err)
-              res.status(404).send("someting went wrong");
-
-     }
-  })
+app.patch("/user/:userId", async (req,res) => {
+   const userId = req.params?.userId;
+   console.log(userId, "abc")
+const data = req.body;
+console.log(data)
   
+try{
 
+  const ALLOWED_UPDATE = ["lastName","gender","age","skills"];
+  const isUpdateAllowed = Object.keys(data).every((k)=>
+         ALLOWED_UPDATE.includes(k)
+  );
+
+  if(!isUpdateAllowed){
+    throw new Error("update not allowed");
+  }
+   if(Array.isArray(data.skills) && data.skills.length > 10){
+    throw new Error("skills cannot be more than 10");
+   }
+
+ const userDetail= await User.findByIdAndUpdate( userId,data,{ new: true ,runValidators:true,});
+  console.log(userDetail);
+  res.send("user updated successfully");
+}
+catch (err){
+  console.log(err)
+  res.status(404).send("someting went wrong");
+}
+
+}) ;
 
 // Connect DB and start server
 connectDB()
@@ -62,6 +77,6 @@ connectDB()
       console.log("Server is running on http://localhost:3000");
     });
   })
-  .catch((err) => {
+  .catch((err) => {new objectId(_id)
     console.error("Database connection failed!", err);
   });
