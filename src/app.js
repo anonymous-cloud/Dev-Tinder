@@ -38,6 +38,7 @@ app.get("/user", async (req,res)=>{
 
 })
 
+ // patch 
 app.patch("/user/:userId", async (req,res) => {
    const userId = req.params?.userId;
    console.log(userId, "abc")
